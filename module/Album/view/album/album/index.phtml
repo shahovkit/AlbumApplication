@@ -1,0 +1,45 @@
+<?php
+
+
+$title = 'Albums';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+echo $this->flashMessenger()->render('error',   ['alert', 'alert-dismissible', 'alert-danger']);
+echo $this->flashMessenger()->render('info',    ['alert', 'alert-dismissible', 'alert-info']);
+echo $this->flashMessenger()->render('default', ['alert', 'alert-dismissible', 'alert-warning']);
+echo $this->flashMessenger()->render('success', ['alert', 'alert-dismissible', 'alert-success']);
+?>
+<p>
+    <?php if ($this->isAllowed('controller/Album\Controller\Album:edit'))  : ?>
+
+    <a href="<?= $this->url('album', ['action' => 'add']) ?>">Add new album</a>
+
+    <?php endif ?>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <?php if ($this->isAllowed('controller/Album\Controller\Album:edit'))  : ?>
+        <th>&nbsp;</th>
+        <?php endif ?>
+    </tr>
+
+    <?php foreach ($albums as $album) : ?>
+        <tr>
+            <td><img style="width:200px;" src="<?= $this->escapeHtml($album->getPicture()?$album->getPicture():null); ?>"></td>
+            <td><?= $this->escapeHtml($album->getTitle()); ?></td>
+            <td><?= $this->escapeHtml($album->getArtist()); ?></td>
+        <?php if ($this->isAllowed('controller/Album\Controller\Album:edit'))  : ?>
+            <td>
+                <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->getId()]) ?>">Edit</a>
+                <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->getId()]) ?>">Delete</a>
+            </td>
+        <?php endif ?>
+        </tr>
+    <?php endforeach; ?>
+</table>

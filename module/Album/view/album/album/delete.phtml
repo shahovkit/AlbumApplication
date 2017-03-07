@@ -1,0 +1,28 @@
+<?php
+
+$title = 'Delete album';
+$url   = $this->url('album', ['action' => 'delete', 'id' => (int) $album->getId()]);
+
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<?php
+echo $this->flashMessenger()->render('error',   ['alert', 'alert-dismissible', 'alert-danger']);
+echo $this->flashMessenger()->render('info',    ['alert', 'alert-dismissible', 'alert-info']);
+echo $this->flashMessenger()->render('default', ['alert', 'alert-dismissible', 'alert-warning']);
+echo $this->flashMessenger()->render('success', ['alert', 'alert-dismissible', 'alert-success']);
+?>
+<p>
+    You want to delete
+    "<?= $this->escapeHtml($album->getTitle()) ?>" by
+    "<?= $this->escapeHtml($album->getArtist()) ?>"?
+</p>
+
+<form action="<?= $url ?>" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?= (int) $album->getId() ?>" />
+        <input type="submit" class="btn btn-danger" name="del" value="Yes" />
+        <input type="submit" class="btn btn-success" name="del" value="No" />
+    </div>
+</form>

@@ -1,0 +1,1 @@
+INSERT INTO zenddb.user_role_linker (user_id, role_id) VALUES (2, 4);
